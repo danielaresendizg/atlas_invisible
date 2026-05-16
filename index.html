@@ -467,18 +467,18 @@
 
     // ── Bubble map ──
     const cities = [
-      { ciudad: 'Sureste MX', pais: 'México', coords: [-90.5, 19.5], SSP1_corto:0.18, SSP1_med:0.22, SSP1_largo:0.50, SSP2_corto:0.19, SSP2_med:0.30, SSP2_largo:0.62, SSP3_corto:0.20, SSP3_med:0.30, SSP3_largo:0.70, SSP5_corto:0.20, SSP5_med:0.37, SSP5_largo:0.83 },
-      { ciudad: 'Cartagena', pais: 'Colombia', coords: [-75.5, 10.4], SSP1_corto:0.18, SSP1_med:0.30, SSP1_largo:0.60, SSP2_corto:0.18, SSP2_med:0.35, SSP2_largo:0.77, SSP3_corto:0.18, SSP3_med:0.37, SSP3_largo:0.80, SSP5_corto:0.18, SSP5_med:0.37, SSP5_largo:0.90 },
-      { ciudad: 'Lima', pais: 'Perú', coords: [-77.0, -12.0], SSP1_corto:0.10, SSP1_med:0.19, SSP1_largo:0.37, SSP2_corto:0.10, SSP2_med:0.19, SSP2_largo:0.45, SSP3_corto:0.12, SSP3_med:0.20, SSP3_largo:0.57, SSP5_corto:0.15, SSP5_med:0.22, SSP5_largo:0.62 },
-      { ciudad: 'Nueva York', pais: 'EE.UU.', coords: [-74.0, 40.7], SSP1_corto:0.18, SSP1_med:0.39, SSP1_largo:0.63, SSP2_corto:0.20, SSP2_med:0.40, SSP2_largo:0.77, SSP3_corto:0.20, SSP3_med:0.41, SSP3_largo:0.85, SSP5_corto:0.22, SSP5_med:0.42, SSP5_largo:1.00 },
-      { ciudad: 'Cape Dorset', pais: 'Canadá', coords: [-76.5, 64.2], SSP1_corto:-0.17, SSP1_med:-0.18, SSP1_largo:-0.18, SSP2_corto:-0.18, SSP2_med:-0.18, SSP2_largo:-0.18, SSP3_corto:-0.18, SSP3_med:-0.18, SSP3_largo:-0.20, SSP5_corto:-0.18, SSP5_med:-0.20, SSP5_largo:-0.20 },
-      { ciudad: 'Longyearbyen', pais: 'Noruega', coords: [15.6, 78.2], SSP1_corto:-0.17, SSP1_med:-0.18, SSP1_largo:-0.18, SSP2_corto:-0.18, SSP2_med:-0.18, SSP2_largo:-0.18, SSP3_corto:-0.18, SSP3_med:-0.18, SSP3_largo:-0.20, SSP5_corto:-0.18, SSP5_med:-0.20, SSP5_largo:-0.20 },
-      { ciudad: 'Amsterdam', pais: 'Holanda', coords: [4.9, 52.4], SSP1_corto:0.18, SSP1_med:0.22, SSP1_largo:0.42, SSP2_corto:0.18, SSP2_med:0.22, SSP2_largo:0.57, SSP3_corto:0.19, SSP3_med:0.22, SSP3_largo:0.60, SSP5_corto:0.19, SSP5_med:0.22, SSP5_largo:0.70 },
-      { ciudad: 'Dubai', pais: 'Emiratos', coords: [55.3, 25.2], SSP1_corto:0.10, SSP1_med:0.19, SSP1_largo:0.37, SSP2_corto:0.18, SSP2_med:0.20, SSP2_largo:0.41, SSP3_corto:0.18, SSP3_med:0.20, SSP3_largo:0.57, SSP5_corto:0.18, SSP5_med:0.22, SSP5_largo:0.60 },
-      { ciudad: 'Bombay', pais: 'India', coords: [72.8, 19.1], SSP1_corto:0.10, SSP1_med:0.20, SSP1_largo:0.38, SSP2_corto:0.10, SSP2_med:0.20, SSP2_largo:0.44, SSP3_corto:0.10, SSP3_med:0.20, SSP3_largo:0.58, SSP5_corto:0.12, SSP5_med:0.22, SSP5_largo:0.65 },
-      { ciudad: 'Manila', pais: 'Filipinas', coords: [120.9, 14.6], SSP1_corto:0.20, SSP1_med:0.40, SSP1_largo:0.80, SSP2_corto:0.21, SSP2_med:0.41, SSP2_largo:0.97, SSP3_corto:0.21, SSP3_med:0.42, SSP3_largo:0.99, SSP5_corto:0.21, SSP5_med:0.42, SSP5_largo:1.00 },
-      { ciudad: 'Melbourne', pais: 'Australia', coords: [144.9, -37.8], SSP1_corto:0.10, SSP1_med:0.20, SSP1_largo:0.42, SSP2_corto:0.15, SSP2_med:0.22, SSP2_largo:0.52, SSP3_corto:0.16, SSP3_med:0.23, SSP3_largo:0.61, SSP5_corto:0.18, SSP5_med:0.22, SSP5_largo:0.77 },
-      { ciudad: 'Ciudad del Cabo', pais: 'Sudáfrica', coords: [18.4, -33.9], SSP1_corto:0.10, SSP1_med:0.20, SSP1_largo:0.41, SSP2_corto:0.18, SSP2_med:0.21, SSP2_largo:0.59, SSP3_corto:0.18, SSP3_med:0.21, SSP3_largo:0.61, SSP5_corto:0.18, SSP5_med:0.22, SSP5_largo:0.78 },
+      { ciudad: 'Sureste MX', pais: 'México', expo: true,  coords: [-90.5, 19.5], SSP1_corto:0.18, SSP1_med:0.22, SSP1_largo:0.50, SSP2_corto:0.19, SSP2_med:0.30, SSP2_largo:0.62, SSP3_corto:0.20, SSP3_med:0.30, SSP3_largo:0.70, SSP5_corto:0.20, SSP5_med:0.37, SSP5_largo:0.83 },
+      { ciudad: 'Cartagena', pais: 'Colombia', expo: false, coords: [-75.5, 10.4], SSP1_corto:0.18, SSP1_med:0.30, SSP1_largo:0.60, SSP2_corto:0.18, SSP2_med:0.35, SSP2_largo:0.77, SSP3_corto:0.18, SSP3_med:0.37, SSP3_largo:0.80, SSP5_corto:0.18, SSP5_med:0.37, SSP5_largo:0.90 },
+      { ciudad: 'Lima', pais: 'Perú', expo: false, coords: [-77.0, -12.0], SSP1_corto:0.10, SSP1_med:0.19, SSP1_largo:0.37, SSP2_corto:0.10, SSP2_med:0.19, SSP2_largo:0.45, SSP3_corto:0.12, SSP3_med:0.20, SSP3_largo:0.57, SSP5_corto:0.15, SSP5_med:0.22, SSP5_largo:0.62 },
+      { ciudad: 'Nueva York', pais: 'EE.UU.', expo: true,  coords: [-74.0, 40.7], SSP1_corto:0.18, SSP1_med:0.39, SSP1_largo:0.63, SSP2_corto:0.20, SSP2_med:0.40, SSP2_largo:0.77, SSP3_corto:0.20, SSP3_med:0.41, SSP3_largo:0.85, SSP5_corto:0.22, SSP5_med:0.42, SSP5_largo:1.00 },
+      { ciudad: 'Cape Dorset', pais: 'Canadá', expo: false, coords: [-76.5, 64.2], SSP1_corto:-0.17, SSP1_med:-0.18, SSP1_largo:-0.18, SSP2_corto:-0.18, SSP2_med:-0.18, SSP2_largo:-0.18, SSP3_corto:-0.18, SSP3_med:-0.18, SSP3_largo:-0.20, SSP5_corto:-0.18, SSP5_med:-0.20, SSP5_largo:-0.20 },
+      { ciudad: 'Longyearbyen', pais: 'Noruega', expo: false, coords: [15.6, 78.2], SSP1_corto:-0.17, SSP1_med:-0.18, SSP1_largo:-0.18, SSP2_corto:-0.18, SSP2_med:-0.18, SSP2_largo:-0.18, SSP3_corto:-0.18, SSP3_med:-0.18, SSP3_largo:-0.20, SSP5_corto:-0.18, SSP5_med:-0.20, SSP5_largo:-0.20 },
+      { ciudad: 'Amsterdam', pais: 'Holanda', expo: true,  coords: [4.9, 52.4], SSP1_corto:0.18, SSP1_med:0.22, SSP1_largo:0.42, SSP2_corto:0.18, SSP2_med:0.22, SSP2_largo:0.57, SSP3_corto:0.19, SSP3_med:0.22, SSP3_largo:0.60, SSP5_corto:0.19, SSP5_med:0.22, SSP5_largo:0.70 },
+      { ciudad: 'Dubai', pais: 'Emiratos', expo: false, coords: [55.3, 25.2], SSP1_corto:0.10, SSP1_med:0.19, SSP1_largo:0.37, SSP2_corto:0.18, SSP2_med:0.20, SSP2_largo:0.41, SSP3_corto:0.18, SSP3_med:0.20, SSP3_largo:0.57, SSP5_corto:0.18, SSP5_med:0.22, SSP5_largo:0.60 },
+      { ciudad: 'Bombay', pais: 'India', expo: false, coords: [72.8, 19.1], SSP1_corto:0.10, SSP1_med:0.20, SSP1_largo:0.38, SSP2_corto:0.10, SSP2_med:0.20, SSP2_largo:0.44, SSP3_corto:0.10, SSP3_med:0.20, SSP3_largo:0.58, SSP5_corto:0.12, SSP5_med:0.22, SSP5_largo:0.65 },
+      { ciudad: 'Manila', pais: 'Filipinas', expo: false, coords: [120.9, 14.6], SSP1_corto:0.20, SSP1_med:0.40, SSP1_largo:0.80, SSP2_corto:0.21, SSP2_med:0.41, SSP2_largo:0.97, SSP3_corto:0.21, SSP3_med:0.42, SSP3_largo:0.99, SSP5_corto:0.21, SSP5_med:0.42, SSP5_largo:1.00 },
+      { ciudad: 'Melbourne', pais: 'Australia', expo: false, coords: [144.9, -37.8], SSP1_corto:0.10, SSP1_med:0.20, SSP1_largo:0.42, SSP2_corto:0.15, SSP2_med:0.22, SSP2_largo:0.52, SSP3_corto:0.16, SSP3_med:0.23, SSP3_largo:0.61, SSP5_corto:0.18, SSP5_med:0.22, SSP5_largo:0.77 },
+      { ciudad: 'Ciudad del Cabo', pais: 'Sudáfrica', expo: true,  coords: [18.4, -33.9], SSP1_corto:0.10, SSP1_med:0.20, SSP1_largo:0.41, SSP2_corto:0.18, SSP2_med:0.21, SSP2_largo:0.59, SSP3_corto:0.18, SSP3_med:0.21, SSP3_largo:0.61, SSP5_corto:0.18, SSP5_med:0.22, SSP5_largo:0.78 },
     ];
 
     let currentSSP = 'SSP1', currentH = 'largo';
@@ -530,8 +530,11 @@
             if (rising) {
               g.append('circle')
                 .attr('cx', xy[0]).attr('cy', xy[1]).attr('r', 0)
-                .attr('fill', `rgba(0,0,255,${0.15 + 0.7 * Math.abs(val) / maxVal})`)
-                .attr('stroke', 'none')
+                .attr('fill', d.expo
+                ? `rgba(0,0,255,${0.3 + 0.7 * Math.abs(val) / maxVal})`
+                : `rgba(0,0,255,${0.08 + 0.25 * Math.abs(val) / maxVal})`)
+                .attr('stroke', d.expo ? '#0000FF' : 'none')
+              .attr('stroke-width', d.expo ? 1.5 : 0)
                 .transition().duration(500).ease(d3.easeCubicOut)
                 .attr('r', rad);
             } else {
