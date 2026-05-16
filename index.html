@@ -251,13 +251,21 @@
     .ipcc-link { color: #1a1a1a; text-decoration: none; border-bottom: 1px solid #ccc; }
     .ipcc-link:hover { color: #0000FF; border-color: #0000FF; }
 
+    .charts-row {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 32px;
+      align-items: start;
+      margin-top: 12px;
+    }
+    .charts-col-map { min-width: 0; }
+    .charts-col-dot { min-width: 0; }
+
     .dot-plot-header {
       display: flex;
-      align-items: baseline;
-      gap: 20px;
-      margin-top: 40px;
+      flex-direction: column;
+      gap: 6px;
       margin-bottom: 8px;
-      flex-wrap: wrap;
     }
     .dot-plot-title {
       font-family: 'Inconsolata', monospace;
@@ -302,6 +310,7 @@
       .col-image .photo-mosaic { grid-template-columns: 1fr 1fr; }
       h1 { font-size: 1.1rem; }
       .content p { font-size: .82rem; }
+      .charts-row { grid-template-columns: 1fr; gap: 24px; }
     }
   </style>
 </head>
@@ -470,28 +479,35 @@
       </div>
     </div>
 
-    <div class="map-legend-row">
-      <div class="map-legend-item"><div class="map-legend-dot" style="background:rgba(0,0,0,0.7)"></div> Sea level rise (m)</div>
-      <div class="map-legend-item"><div class="map-legend-dot" style="background:rgba(0,0,255,0.8)"></div> Cities in the installation</div>
-      <div class="map-legend-item"><div class="map-legend-dot" style="background:transparent;border:1.5px dashed #aaa"></div> Sea level fall (isostatic rebound)</div>
-    </div>
-    <div id="bubble-map"></div>
-    <div class="map-note">Bubble size proportional to sea level change in metres · Source: IPCC AR6 (2021)</div>
-    <div id="map-tooltip-viz"></div>
+    <div class="charts-row">
+      <!-- Left: bubble map -->
+      <div class="charts-col-map">
+        <div class="map-legend-row">
+          <div class="map-legend-item"><div class="map-legend-dot" style="background:rgba(0,0,0,0.7)"></div> Sea level rise (m)</div>
+          <div class="map-legend-item"><div class="map-legend-dot" style="background:rgba(0,0,255,0.8)"></div> Cities in the installation</div>
+          <div class="map-legend-item"><div class="map-legend-dot" style="background:transparent;border:1.5px dashed #aaa"></div> Sea level fall (isostatic rebound)</div>
+        </div>
+        <div id="bubble-map"></div>
+        <div class="map-note">Bubble size proportional to sea level change in metres · Source: IPCC AR6 (2021)</div>
+        <div id="map-tooltip-viz"></div>
+      </div>
 
-    <!-- Dot plot -->
-    <div class="dot-plot-header">
-      <span class="dot-plot-title" id="dot-plot-label-en">Sea level change range · SSP1 → SSP4</span>
-      <span class="dot-plot-title" id="dot-plot-label-es" style="display:none">Rango de cambio del nivel del mar · SSP1 → SSP4</span>
-      <div class="dot-plot-legend">
-        <span class="dot-plot-leg-item"><span class="dot-plot-leg-dot" style="background:#a8c4f0"></span> SSP1 · 2.6</span>
-        <span class="dot-plot-leg-item"><span class="dot-plot-leg-dot" style="background:#0000FF"></span> SSP4 · 8.5</span>
-        <span class="dot-plot-leg-item"><span class="dot-plot-leg-dot expo" style="background:#0000FF;border:2px solid #0000FF"></span><span id="dot-expo-en">Installation cities</span><span id="dot-expo-es" style="display:none">Ciudades de la instalación</span></span>
+      <!-- Right: dot plot -->
+      <div class="charts-col-dot">
+        <div class="dot-plot-header">
+          <span class="dot-plot-title" id="dot-plot-label-en">Range SSP1 → SSP4</span>
+          <span class="dot-plot-title" id="dot-plot-label-es" style="display:none">Rango SSP1 → SSP4</span>
+          <div class="dot-plot-legend">
+            <span class="dot-plot-leg-item"><span class="dot-plot-leg-dot" style="background:#a8c4f0"></span> SSP1</span>
+            <span class="dot-plot-leg-item"><span class="dot-plot-leg-dot" style="background:#0000FF"></span> SSP4</span>
+            <span class="dot-plot-leg-item"><span class="dot-plot-leg-dot" style="background:#0000FF"></span><span id="dot-expo-en">Expo cities</span><span id="dot-expo-es" style="display:none">Ciudades expo</span></span>
+          </div>
+        </div>
+        <div id="dot-plot"></div>
+        <div class="map-note" id="dot-note-en">SSP1·2.6 → SSP4·8.5 · Source: IPCC AR6 (2021)</div>
+        <div class="map-note" style="display:none" id="dot-note-es">SSP1·2.6 → SSP4·8.5 · Fuente: IPCC AR6 (2021)</div>
       </div>
     </div>
-    <div id="dot-plot"></div>
-    <div class="map-note" style="margin-bottom:0" id="dot-note-en">Range between best-case (SSP1·2.6) and worst-case (SSP4·8.5) scenarios · Source: IPCC AR6 (2021)</div>
-    <div class="map-note" style="margin-bottom:0;display:none" id="dot-note-es">Rango entre el escenario optimista (SSP1·2.6) y el pesimista (SSP4·8.5) · Fuente: IPCC AR6 (2021)</div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
