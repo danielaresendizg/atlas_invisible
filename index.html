@@ -144,7 +144,11 @@
       padding: 8px 10px;
       cursor: pointer;
     }
-    .ssp-legend-item.active { border-color: #0000FF; background: #f0f0ff; }
+    .ssp-legend-item.active { border-color: #0000FF; background: #f0f4ff; }
+    .ssp-legend-item[data-ssp="SSP1"].active { border-color: #a8c4f0; background: #f4f8ff; }
+    .ssp-legend-item[data-ssp="SSP2"].active { border-color: #5a8fd4; background: #f0f4ff; }
+    .ssp-legend-item[data-ssp="SSP3"].active { border-color: #1a55b0; background: #eef2ff; }
+    .ssp-legend-item[data-ssp="SSP4"].active { border-color: #0000FF; background: #eaeeff; }
     .ssp-legend-item:hover { border-color: #1a1a1a; }
     .ssp-legend-code {
       font-family: 'Inconsolata', monospace;
@@ -154,7 +158,10 @@
       letter-spacing: .05em;
       margin-bottom: 4px;
     }
-    .ssp-legend-item.active .ssp-legend-code { color: #0000FF; }
+    .ssp-legend-item[data-ssp="SSP1"].active .ssp-legend-code { color: #a8c4f0; }
+    .ssp-legend-item[data-ssp="SSP2"].active .ssp-legend-code { color: #5a8fd4; }
+    .ssp-legend-item[data-ssp="SSP3"].active .ssp-legend-code { color: #1a55b0; }
+    .ssp-legend-item[data-ssp="SSP4"].active .ssp-legend-code { color: #0000FF; }
     .ssp-legend-desc {
       font-size: .68rem;
       color: #888;
@@ -415,8 +422,8 @@
           <div class="ssp-legend-desc">Regional rivalry. Low ambition. Fragmented policies.</div>
           <div class="ssp-legend-temp">≈ +3.7°C – 5.1°C</div>
         </div>
-        <div class="ssp-legend-item" data-ssp="SSP5">
-          <div class="ssp-legend-code">SSP5 · 8.5</div>
+        <div class="ssp-legend-item" data-ssp="SSP4">
+          <div class="ssp-legend-code">SSP4 · 8.5</div>
           <div class="ssp-legend-desc">Fossil-fuelled development. No mitigation. Catastrophic warming.</div>
           <div class="ssp-legend-temp">≈ +4.3°C – 6.7°C</div>
         </div>
@@ -449,8 +456,8 @@
           <div class="ssp-legend-desc">Rivalidad regional. Baja ambición. Políticas fragmentadas.</div>
           <div class="ssp-legend-temp">≈ +3.7°C – 5.1°C</div>
         </div>
-        <div class="ssp-legend-item" data-ssp="SSP5">
-          <div class="ssp-legend-code">SSP5 · 8.5</div>
+        <div class="ssp-legend-item" data-ssp="SSP4">
+          <div class="ssp-legend-code">SSP4 · 8.5</div>
           <div class="ssp-legend-desc">Desarrollo fósil. Sin mitigación. Calentamiento catastrófico.</div>
           <div class="ssp-legend-temp">≈ +4.3°C – 6.7°C</div>
         </div>
@@ -474,17 +481,17 @@
 
     <!-- Dot plot -->
     <div class="dot-plot-header">
-      <span class="dot-plot-title" id="dot-plot-label-en">Sea level change range · SSP1 → SSP5</span>
-      <span class="dot-plot-title" id="dot-plot-label-es" style="display:none">Rango de cambio del nivel del mar · SSP1 → SSP5</span>
+      <span class="dot-plot-title" id="dot-plot-label-en">Sea level change range · SSP1 → SSP4</span>
+      <span class="dot-plot-title" id="dot-plot-label-es" style="display:none">Rango de cambio del nivel del mar · SSP1 → SSP4</span>
       <div class="dot-plot-legend">
-        <span class="dot-plot-leg-item"><span class="dot-plot-leg-dot" style="background:#aac4ff"></span> SSP1 · 2.6</span>
-        <span class="dot-plot-leg-item"><span class="dot-plot-leg-dot" style="background:#0000FF"></span> SSP5 · 8.5</span>
+        <span class="dot-plot-leg-item"><span class="dot-plot-leg-dot" style="background:#a8c4f0"></span> SSP1 · 2.6</span>
+        <span class="dot-plot-leg-item"><span class="dot-plot-leg-dot" style="background:#0000FF"></span> SSP4 · 8.5</span>
         <span class="dot-plot-leg-item"><span class="dot-plot-leg-dot expo" style="background:#0000FF;border:2px solid #0000FF"></span><span id="dot-expo-en">Installation cities</span><span id="dot-expo-es" style="display:none">Ciudades de la instalación</span></span>
       </div>
     </div>
     <div id="dot-plot"></div>
-    <div class="map-note" style="margin-bottom:0" id="dot-note-en">Range between best-case (SSP1·2.6) and worst-case (SSP5·8.5) scenarios · Source: IPCC AR6 (2021)</div>
-    <div class="map-note" style="margin-bottom:0;display:none" id="dot-note-es">Rango entre el escenario optimista (SSP1·2.6) y el pesimista (SSP5·8.5) · Fuente: IPCC AR6 (2021)</div>
+    <div class="map-note" style="margin-bottom:0" id="dot-note-en">Range between best-case (SSP1·2.6) and worst-case (SSP4·8.5) scenarios · Source: IPCC AR6 (2021)</div>
+    <div class="map-note" style="margin-bottom:0;display:none" id="dot-note-es">Rango entre el escenario optimista (SSP1·2.6) y el pesimista (SSP4·8.5) · Fuente: IPCC AR6 (2021)</div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
@@ -517,21 +524,24 @@
 
     // ── Bubble map ──
     const cities = [
-      { ciudad: 'Sureste MX', pais: 'México', expo: true,  coords: [-90.5, 19.5], SSP1_corto:0.18, SSP1_med:0.22, SSP1_largo:0.50, SSP2_corto:0.19, SSP2_med:0.30, SSP2_largo:0.62, SSP3_corto:0.20, SSP3_med:0.30, SSP3_largo:0.70, SSP5_corto:0.20, SSP5_med:0.37, SSP5_largo:0.83 },
-      { ciudad: 'Cartagena', pais: 'Colombia', expo: false, coords: [-75.5, 10.4], SSP1_corto:0.18, SSP1_med:0.30, SSP1_largo:0.60, SSP2_corto:0.18, SSP2_med:0.35, SSP2_largo:0.77, SSP3_corto:0.18, SSP3_med:0.37, SSP3_largo:0.80, SSP5_corto:0.18, SSP5_med:0.37, SSP5_largo:0.90 },
-      { ciudad: 'Lima', pais: 'Perú', expo: false, coords: [-77.0, -12.0], SSP1_corto:0.10, SSP1_med:0.19, SSP1_largo:0.37, SSP2_corto:0.10, SSP2_med:0.19, SSP2_largo:0.45, SSP3_corto:0.12, SSP3_med:0.20, SSP3_largo:0.57, SSP5_corto:0.15, SSP5_med:0.22, SSP5_largo:0.62 },
-      { ciudad: 'Nueva York', pais: 'EE.UU.', expo: true,  coords: [-74.0, 40.7], SSP1_corto:0.18, SSP1_med:0.39, SSP1_largo:0.63, SSP2_corto:0.20, SSP2_med:0.40, SSP2_largo:0.77, SSP3_corto:0.20, SSP3_med:0.41, SSP3_largo:0.85, SSP5_corto:0.22, SSP5_med:0.42, SSP5_largo:1.00 },
-      { ciudad: 'Cape Dorset', pais: 'Canadá', expo: false, coords: [-76.5, 64.2], SSP1_corto:-0.17, SSP1_med:-0.18, SSP1_largo:-0.18, SSP2_corto:-0.18, SSP2_med:-0.18, SSP2_largo:-0.18, SSP3_corto:-0.18, SSP3_med:-0.18, SSP3_largo:-0.20, SSP5_corto:-0.18, SSP5_med:-0.20, SSP5_largo:-0.20 },
-      { ciudad: 'Longyearbyen', pais: 'Noruega', expo: false, coords: [15.6, 78.2], SSP1_corto:-0.17, SSP1_med:-0.18, SSP1_largo:-0.18, SSP2_corto:-0.18, SSP2_med:-0.18, SSP2_largo:-0.18, SSP3_corto:-0.18, SSP3_med:-0.18, SSP3_largo:-0.20, SSP5_corto:-0.18, SSP5_med:-0.20, SSP5_largo:-0.20 },
-      { ciudad: 'Amsterdam', pais: 'Holanda', expo: true,  coords: [4.9, 52.4], SSP1_corto:0.18, SSP1_med:0.22, SSP1_largo:0.42, SSP2_corto:0.18, SSP2_med:0.22, SSP2_largo:0.57, SSP3_corto:0.19, SSP3_med:0.22, SSP3_largo:0.60, SSP5_corto:0.19, SSP5_med:0.22, SSP5_largo:0.70 },
-      { ciudad: 'Dubai', pais: 'Emiratos', expo: false, coords: [55.3, 25.2], SSP1_corto:0.10, SSP1_med:0.19, SSP1_largo:0.37, SSP2_corto:0.18, SSP2_med:0.20, SSP2_largo:0.41, SSP3_corto:0.18, SSP3_med:0.20, SSP3_largo:0.57, SSP5_corto:0.18, SSP5_med:0.22, SSP5_largo:0.60 },
-      { ciudad: 'Bombay', pais: 'India', expo: false, coords: [72.8, 19.1], SSP1_corto:0.10, SSP1_med:0.20, SSP1_largo:0.38, SSP2_corto:0.10, SSP2_med:0.20, SSP2_largo:0.44, SSP3_corto:0.10, SSP3_med:0.20, SSP3_largo:0.58, SSP5_corto:0.12, SSP5_med:0.22, SSP5_largo:0.65 },
-      { ciudad: 'Manila', pais: 'Filipinas', expo: false, coords: [120.9, 14.6], SSP1_corto:0.20, SSP1_med:0.40, SSP1_largo:0.80, SSP2_corto:0.21, SSP2_med:0.41, SSP2_largo:0.97, SSP3_corto:0.21, SSP3_med:0.42, SSP3_largo:0.99, SSP5_corto:0.21, SSP5_med:0.42, SSP5_largo:1.00 },
-      { ciudad: 'Melbourne', pais: 'Australia', expo: false, coords: [144.9, -37.8], SSP1_corto:0.10, SSP1_med:0.20, SSP1_largo:0.42, SSP2_corto:0.15, SSP2_med:0.22, SSP2_largo:0.52, SSP3_corto:0.16, SSP3_med:0.23, SSP3_largo:0.61, SSP5_corto:0.18, SSP5_med:0.22, SSP5_largo:0.77 },
-      { ciudad: 'Ciudad del Cabo', pais: 'Sudáfrica', expo: true,  coords: [18.4, -33.9], SSP1_corto:0.10, SSP1_med:0.20, SSP1_largo:0.41, SSP2_corto:0.18, SSP2_med:0.21, SSP2_largo:0.59, SSP3_corto:0.18, SSP3_med:0.21, SSP3_largo:0.61, SSP5_corto:0.18, SSP5_med:0.22, SSP5_largo:0.78 },
+      { ciudad: 'Sureste MX', pais: 'México', expo: true,  coords: [-90.5, 19.5], SSP1_corto:0.18, SSP1_med:0.22, SSP1_largo:0.50, SSP2_corto:0.19, SSP2_med:0.30, SSP2_largo:0.62, SSP3_corto:0.20, SSP3_med:0.30, SSP3_largo:0.70, SSP4_corto:0.20, SSP4_med:0.37, SSP4_largo:0.83 },
+      { ciudad: 'Cartagena', pais: 'Colombia', expo: false, coords: [-75.5, 10.4], SSP1_corto:0.18, SSP1_med:0.30, SSP1_largo:0.60, SSP2_corto:0.18, SSP2_med:0.35, SSP2_largo:0.77, SSP3_corto:0.18, SSP3_med:0.37, SSP3_largo:0.80, SSP4_corto:0.18, SSP4_med:0.37, SSP4_largo:0.90 },
+      { ciudad: 'Lima', pais: 'Perú', expo: false, coords: [-77.0, -12.0], SSP1_corto:0.10, SSP1_med:0.19, SSP1_largo:0.37, SSP2_corto:0.10, SSP2_med:0.19, SSP2_largo:0.45, SSP3_corto:0.12, SSP3_med:0.20, SSP3_largo:0.57, SSP4_corto:0.15, SSP4_med:0.22, SSP4_largo:0.62 },
+      { ciudad: 'Nueva York', pais: 'EE.UU.', expo: true,  coords: [-74.0, 40.7], SSP1_corto:0.18, SSP1_med:0.39, SSP1_largo:0.63, SSP2_corto:0.20, SSP2_med:0.40, SSP2_largo:0.77, SSP3_corto:0.20, SSP3_med:0.41, SSP3_largo:0.85, SSP4_corto:0.22, SSP4_med:0.42, SSP4_largo:1.00 },
+      { ciudad: 'Cape Dorset', pais: 'Canadá', expo: false, coords: [-76.5, 64.2], SSP1_corto:-0.17, SSP1_med:-0.18, SSP1_largo:-0.18, SSP2_corto:-0.18, SSP2_med:-0.18, SSP2_largo:-0.18, SSP3_corto:-0.18, SSP3_med:-0.18, SSP3_largo:-0.20, SSP4_corto:-0.18, SSP4_med:-0.20, SSP4_largo:-0.20 },
+      { ciudad: 'Longyearbyen', pais: 'Noruega', expo: false, coords: [15.6, 78.2], SSP1_corto:-0.17, SSP1_med:-0.18, SSP1_largo:-0.18, SSP2_corto:-0.18, SSP2_med:-0.18, SSP2_largo:-0.18, SSP3_corto:-0.18, SSP3_med:-0.18, SSP3_largo:-0.20, SSP4_corto:-0.18, SSP4_med:-0.20, SSP4_largo:-0.20 },
+      { ciudad: 'Amsterdam', pais: 'Holanda', expo: true,  coords: [4.9, 52.4], SSP1_corto:0.18, SSP1_med:0.22, SSP1_largo:0.42, SSP2_corto:0.18, SSP2_med:0.22, SSP2_largo:0.57, SSP3_corto:0.19, SSP3_med:0.22, SSP3_largo:0.60, SSP4_corto:0.19, SSP4_med:0.22, SSP4_largo:0.70 },
+      { ciudad: 'Dubai', pais: 'Emiratos', expo: false, coords: [55.3, 25.2], SSP1_corto:0.10, SSP1_med:0.19, SSP1_largo:0.37, SSP2_corto:0.18, SSP2_med:0.20, SSP2_largo:0.41, SSP3_corto:0.18, SSP3_med:0.20, SSP3_largo:0.57, SSP4_corto:0.18, SSP4_med:0.22, SSP4_largo:0.60 },
+      { ciudad: 'Bombay', pais: 'India', expo: false, coords: [72.8, 19.1], SSP1_corto:0.10, SSP1_med:0.20, SSP1_largo:0.38, SSP2_corto:0.10, SSP2_med:0.20, SSP2_largo:0.44, SSP3_corto:0.10, SSP3_med:0.20, SSP3_largo:0.58, SSP4_corto:0.12, SSP4_med:0.22, SSP4_largo:0.65 },
+      { ciudad: 'Manila', pais: 'Filipinas', expo: false, coords: [120.9, 14.6], SSP1_corto:0.20, SSP1_med:0.40, SSP1_largo:0.80, SSP2_corto:0.21, SSP2_med:0.41, SSP2_largo:0.97, SSP3_corto:0.21, SSP3_med:0.42, SSP3_largo:0.99, SSP4_corto:0.21, SSP4_med:0.42, SSP4_largo:1.00 },
+      { ciudad: 'Melbourne', pais: 'Australia', expo: false, coords: [144.9, -37.8], SSP1_corto:0.10, SSP1_med:0.20, SSP1_largo:0.42, SSP2_corto:0.15, SSP2_med:0.22, SSP2_largo:0.52, SSP3_corto:0.16, SSP3_med:0.23, SSP3_largo:0.61, SSP4_corto:0.18, SSP4_med:0.22, SSP4_largo:0.77 },
+      { ciudad: 'Ciudad del Cabo', pais: 'Sudáfrica', expo: true,  coords: [18.4, -33.9], SSP1_corto:0.10, SSP1_med:0.20, SSP1_largo:0.41, SSP2_corto:0.18, SSP2_med:0.21, SSP2_largo:0.59, SSP3_corto:0.18, SSP3_med:0.21, SSP3_largo:0.61, SSP4_corto:0.18, SSP4_med:0.22, SSP4_largo:0.78 },
     ];
 
     let currentSSP = 'SSP1', currentH = 'largo';
+
+    // Shared colour palette SSP1→SSP4
+    const sspColors = { SSP1: '#a8c4f0', SSP2: '#5a8fd4', SSP3: '#1a55b0', SSP4: '#0000FF' };
 
     function getKey() { return currentSSP + '_' + currentH; }
 
@@ -578,12 +588,15 @@
             const g = svg.append('g').attr('cursor', 'pointer');
 
             if (rising) {
+              const baseColor = d3.color(sspColors[currentSSP]);
+              baseColor.opacity = d.expo
+                ? 0.35 + 0.65 * Math.abs(val) / maxVal
+                : 0.15 + 0.5 * Math.abs(val) / maxVal;
               g.append('circle')
                 .attr('cx', xy[0]).attr('cy', xy[1]).attr('r', 0)
-                .attr('fill', d.expo
-                  ? `rgba(0,0,255,${0.3 + 0.7 * Math.abs(val) / maxVal})`
-                  : `rgba(0,0,0,${0.15 + 0.6 * Math.abs(val) / maxVal})`)
-                .attr('stroke', 'none')
+                .attr('fill', baseColor + '')
+                .attr('stroke', d.expo ? sspColors[currentSSP] : 'none')
+                .attr('stroke-width', d.expo ? 1 : 0)
                 .transition().duration(500).ease(d3.easeCubicOut)
                 .attr('r', rad);
             } else {
@@ -618,8 +631,8 @@
       const container = document.getElementById('dot-plot');
       container.innerHTML = '';
 
-      const rising = cities.filter(d => d['SSP5_' + currentH] >= 0);
-      const sorted = [...rising].sort((a, b) => b['SSP5_' + currentH] - a['SSP5_' + currentH]);
+      const rising = cities.filter(d => d['SSP4_' + currentH] >= 0);
+      const sorted = [...rising].sort((a, b) => b['SSP4_' + currentH] - a['SSP4_' + currentH]);
 
       const W = container.clientWidth || 700;
       const rowH = 28, padLeft = 120, padRight = 20, padTop = 20, padBottom = 24;
@@ -650,7 +663,7 @@
       sorted.forEach((d, i) => {
         const cy = padTop + i * rowH + rowH / 2;
         const v1 = d['SSP1_' + currentH];
-        const v5 = d['SSP5_' + currentH];
+        const v5 = d['SSP4_' + currentH];
         const x1 = xScale(Math.max(v1, 0));
         const x5 = xScale(Math.max(v5, 0));
 
@@ -668,23 +681,23 @@
         svg.append('line')
           .attr('x1', x1).attr('x2', x5)
           .attr('y1', cy).attr('y2', cy)
-          .attr('stroke', '#c8d4ff').attr('stroke-width', 2);
+          .attr('stroke', sspColors.SSP2).attr('stroke-width', 2).attr('opacity', 0.3);
 
         // SSP1 dot
         svg.append('circle')
           .attr('cx', x1).attr('cy', cy).attr('r', 5)
-          .attr('fill', '#aac4ff').attr('stroke', '#fff').attr('stroke-width', 1);
+          .attr('fill', sspColors.SSP1).attr('stroke', '#fff').attr('stroke-width', 1);
 
-        // SSP5 dot
+        // SSP4 dot
         svg.append('circle')
           .attr('cx', x5).attr('cy', cy).attr('r', 5)
-          .attr('fill', '#0000FF').attr('stroke', '#fff').attr('stroke-width', 1);
+          .attr('fill', sspColors.SSP4).attr('stroke', '#fff').attr('stroke-width', 1);
 
-        // SSP5 value label
+        // SSP4 value label
         svg.append('text')
           .attr('x', x5 + 8).attr('y', cy + 4)
           .attr('font-family', 'Inconsolata, monospace')
-          .attr('font-size', 9).attr('fill', '#0000FF')
+          .attr('font-size', 9).attr('fill', sspColors.SSP4)
           .text('+' + v5.toFixed(2) + ' m');
       });
     }
