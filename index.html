@@ -34,11 +34,22 @@
     .col-image {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 4px;
     }
-    .col-image img {
+    .col-image .photo-hero {
       width: 100%;
       height: auto;
+      display: block;
+    }
+    .col-image .photo-mosaic {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+    }
+    .col-image .photo-mosaic img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
       display: block;
     }
     .img-caption {
@@ -242,8 +253,8 @@
         gap: 0;
       }
       .col-text { position: static; order: 2; padding-top: 24px; }
-      .col-image { order: 1; gap: 8px; }
-      .col-image img:not(:first-child) { display: none; }
+      .col-image { order: 1; gap: 4px; }
+      .col-image .photo-mosaic { grid-template-columns: 1fr 1fr; }
       h1 { font-size: 1.1rem; }
       .content p { font-size: .82rem; }
     }
@@ -274,15 +285,26 @@
         </ul>
       </div>
       <div class="col-image">
-        <img src="fund_DSC_0063.jpg" alt=""><img src="fund_DSC_0070.jpg" alt="">
-        <img src="fund_DSC_0073.jpg" alt=""><img src="fund_DSC_0090.jpg" alt="">
-        <img src="fund_DSC_0102.jpg" alt=""><img src="fund_DSC_0105.jpg" alt="">
-        <img src="fund_DSC_0120.jpg" alt=""><img src="fund_DSC_0144.jpg" alt="">
-        <img src="fund_DSC_0165.jpg" alt=""><img src="fund_DSC_0224.jpg" alt="">
-        <img src="fund_DSC_0228.jpg" alt=""><img src="fund__DSC6799.jpg" alt="">
-        <img src="fund__DSC6885.jpg" alt=""><img src="fund__DSC6990.jpg" alt="">
-        <img src="fund__DSC7055.jpg" alt=""><img src="fund__DSC7129.jpg" alt="">
-        <img src="fund__DSC7288.jpg" alt=""><img src="fund__DSC7346.jpg" alt="">
+        <img class="photo-hero" src="fund_DSC_0063.jpg" alt="">
+        <div class="photo-mosaic">
+          <img src="fund_DSC_0070.jpg" alt="">
+          <img src="fund_DSC_0073.jpg" alt="">
+          <img src="fund_DSC_0090.jpg" alt="">
+          <img src="fund_DSC_0102.jpg" alt="">
+          <img src="fund_DSC_0105.jpg" alt="">
+          <img src="fund_DSC_0120.jpg" alt="">
+          <img src="fund_DSC_0144.jpg" alt="">
+          <img src="fund_DSC_0165.jpg" alt="">
+          <img src="fund_DSC_0224.jpg" alt="">
+          <img src="fund_DSC_0228.jpg" alt="">
+          <img src="fund__DSC6799.jpg" alt="">
+          <img src="fund__DSC6885.jpg" alt="">
+          <img src="fund__DSC6990.jpg" alt="">
+          <img src="fund__DSC7055.jpg" alt="">
+          <img src="fund__DSC7129.jpg" alt="">
+          <img src="fund__DSC7288.jpg" alt="">
+          <img src="fund__DSC7346.jpg" alt="">
+        </div>
         <div class="img-caption">Photographs: Studio Fundación, 2023.</div>
       </div>
     </div>
@@ -306,15 +328,26 @@
         </ul>
       </div>
       <div class="col-image">
-        <img src="fund_DSC_0063.jpg" alt=""><img src="fund_DSC_0070.jpg" alt="">
-        <img src="fund_DSC_0073.jpg" alt=""><img src="fund_DSC_0090.jpg" alt="">
-        <img src="fund_DSC_0102.jpg" alt=""><img src="fund_DSC_0105.jpg" alt="">
-        <img src="fund_DSC_0120.jpg" alt=""><img src="fund_DSC_0144.jpg" alt="">
-        <img src="fund_DSC_0165.jpg" alt=""><img src="fund_DSC_0224.jpg" alt="">
-        <img src="fund_DSC_0228.jpg" alt=""><img src="fund__DSC6799.jpg" alt="">
-        <img src="fund__DSC6885.jpg" alt=""><img src="fund__DSC6990.jpg" alt="">
-        <img src="fund__DSC7055.jpg" alt=""><img src="fund__DSC7129.jpg" alt="">
-        <img src="fund__DSC7288.jpg" alt=""><img src="fund__DSC7346.jpg" alt="">
+        <img class="photo-hero" src="fund_DSC_0063.jpg" alt="">
+        <div class="photo-mosaic">
+          <img src="fund_DSC_0070.jpg" alt="">
+          <img src="fund_DSC_0073.jpg" alt="">
+          <img src="fund_DSC_0090.jpg" alt="">
+          <img src="fund_DSC_0102.jpg" alt="">
+          <img src="fund_DSC_0105.jpg" alt="">
+          <img src="fund_DSC_0120.jpg" alt="">
+          <img src="fund_DSC_0144.jpg" alt="">
+          <img src="fund_DSC_0165.jpg" alt="">
+          <img src="fund_DSC_0224.jpg" alt="">
+          <img src="fund_DSC_0228.jpg" alt="">
+          <img src="fund__DSC6799.jpg" alt="">
+          <img src="fund__DSC6885.jpg" alt="">
+          <img src="fund__DSC6990.jpg" alt="">
+          <img src="fund__DSC7055.jpg" alt="">
+          <img src="fund__DSC7129.jpg" alt="">
+          <img src="fund__DSC7288.jpg" alt="">
+          <img src="fund__DSC7346.jpg" alt="">
+        </div>
         <div class="img-caption">Fotografías: Studio Fundación, 2023.</div>
       </div>
     </div>
