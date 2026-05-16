@@ -255,11 +255,23 @@
       display: grid;
       grid-template-columns: 3fr 2fr;
       gap: 32px;
-      align-items: start;
+      align-items: stretch;
       margin-top: 12px;
     }
-    .charts-col-map { min-width: 0; }
-    .charts-col-dot { min-width: 0; }
+    .charts-col-map {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .charts-col-map #bubble-map { flex: 1; }
+    .charts-col-map .map-note { margin-top: auto; padding-top: 8px; }
+    .charts-col-dot {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .charts-col-dot #dot-plot { flex: 1; }
+    .charts-col-dot .map-note { margin-top: auto; padding-top: 8px; }
 
     .dot-plot-header {
       display: flex;
@@ -650,9 +662,12 @@
       const rising = cities.filter(d => d['SSP4_' + currentH] >= 0);
       const sorted = [...rising].sort((a, b) => b['SSP4_' + currentH] - a['SSP4_' + currentH]);
 
-      const W = container.clientWidth || 700;
-      const rowH = 28, padLeft = 120, padRight = 20, padTop = 20, padBottom = 24;
-      const H = sorted.length * rowH + padTop + padBottom;
+      const W = container.clientWidth || 400;
+      // Match height of the bubble map SVG so footnotes align
+      const mapSvg = document.querySelector('#bubble-map svg');
+      const H = mapSvg ? mapSvg.getBoundingClientRect().height : sorted.length * 28 + 44;
+      const padLeft = 110, padRight = 48, padTop = 20, padBottom = 24;
+      const rowH = (H - padTop - padBottom) / sorted.length;
 
       const svg = d3.select('#dot-plot').append('svg')
         .attr('viewBox', `0 0 ${W} ${H}`)
@@ -718,7 +733,7 @@
       });
     }
 
-    function drawAll() { drawMap(); drawDotPlot(); }
+    function drawAll() { drawMap(); requestAnimationFrame(drawDotPlot); }
 
     // SSP cards
     document.querySelectorAll('.ssp-legend-item').forEach(btn => {
