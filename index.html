@@ -104,26 +104,73 @@
       margin: 0 auto;
       padding: 0 48px 80px;
     }
-    .viz-header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
+    .viz-intro {
+      margin-bottom: 28px;
+      border-top: 1px solid #e0e0e0;
+      padding-top: 28px;
     }
-    .viz-title {
+    .viz-intro-title {
+      font-family: Georgia, serif;
+      font-size: 1rem;
+      font-weight: 400;
+      margin: 0 0 12px;
+    }
+    .viz-intro-text {
+      font-size: .75rem;
+      color: #555;
+      font-weight: 300;
+      line-height: 1.7;
+      margin: 0 0 16px;
+    }
+    .ssp-legend {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .ssp-legend-item {
+      border: 1px solid #e0e0e0;
+      padding: 8px 10px;
+      cursor: pointer;
+    }
+    .ssp-legend-item.active { border-color: #00FF00; background: #f5fff5; }
+    .ssp-legend-item:hover { border-color: #1a1a1a; }
+    .ssp-legend-code {
       font-family: 'Inconsolata', monospace;
       font-size: .65rem;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: .08em;
-      color: #888;
-      flex: 1;
+      letter-spacing: .05em;
+      margin-bottom: 4px;
     }
-    .ssp-controls, .horizon-controls {
+    .ssp-legend-item.active .ssp-legend-code { color: #00a000; }
+    .ssp-legend-desc {
+      font-size: .68rem;
+      color: #888;
+      font-weight: 300;
+      line-height: 1.5;
+    }
+    .ssp-legend-temp {
+      font-family: 'Inconsolata', monospace;
+      font-size: .6rem;
+      color: #aaa;
+      margin-top: 4px;
+    }
+    .horizon-row {
       display: flex;
       gap: 4px;
+      align-items: center;
+      margin-bottom: 16px;
     }
-    .ssp-btn, .horizon-btn {
+    .horizon-label {
+      font-family: 'Inconsolata', monospace;
+      font-size: .58rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: #aaa;
+      margin-right: 8px;
+    }
+    .horizon-btn {
       background: transparent;
       border: 1px solid #ddd;
       font-family: 'Inconsolata', monospace;
@@ -134,14 +181,38 @@
       cursor: pointer;
       color: #888;
     }
-    .ssp-btn.active, .horizon-btn.active {
-      background: #00FF00;
-      border-color: #00FF00;
-      color: #000;
+    .horizon-btn.active { background: #1a1a1a; border-color: #1a1a1a; color: #fff; }
+    .horizon-btn:hover { border-color: #1a1a1a; color: #1a1a1a; }
+    .map-legend-row {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 12px;
     }
-    .ssp-btn:hover, .horizon-btn:hover { border-color: #1a1a1a; color: #1a1a1a; }
+    .map-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Inconsolata', monospace;
+      font-size: .58rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    .map-legend-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      flex-shrink: 0;
+    }
     #bubble-map { width: 100%; }
     #bubble-map svg { width: 100%; display: block; }
+    .map-note {
+      font-family: 'Inconsolata', monospace;
+      font-size: .55rem;
+      color: #bbb;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-top: 8px;
+    }
     #map-tooltip-viz {
       position: fixed;
       pointer-events: none;
@@ -156,6 +227,7 @@
       transition: opacity .15s;
       white-space: nowrap;
       z-index: 999;
+      line-height: 1.6;
     }
 
     /* Mobile */
@@ -236,22 +308,81 @@
 
   <!-- Data visualization -->
   <div class="viz-section">
-    <div class="viz-header">
-      <div class="viz-title" id="viz-title-en">Sea level rise projections · 12 cities</div>
-      <div class="viz-title" id="viz-title-es" style="display:none">Proyecciones de elevación del nivel del mar · 12 ciudades</div>
-      <div class="ssp-controls">
-        <button class="ssp-btn active" data-ssp="SSP1">SSP1</button>
-        <button class="ssp-btn" data-ssp="SSP2">SSP2</button>
-        <button class="ssp-btn" data-ssp="SSP3">SSP3</button>
-        <button class="ssp-btn" data-ssp="SSP5">SSP5</button>
+
+    <!-- EN -->
+    <div id="viz-en" class="viz-intro">
+      <h2 class="viz-intro-title">Sea level rise projections · 12 cities</h2>
+      <p class="viz-intro-text">The IPCC (Intergovernmental Panel on Climate Change) defines four climate scenarios — called SSPs (Shared Socioeconomic Pathways) — that describe possible futures depending on how much greenhouse gas emissions are reduced. Each scenario projects a different degree of warming and, consequently, a different rise in sea level. The data below shows projected sea level change in metres for 12 coastal cities across six continents, at three time horizons.</p>
+      <div class="ssp-legend" id="ssp-btns">
+        <div class="ssp-legend-item active" data-ssp="SSP1">
+          <div class="ssp-legend-code">SSP1 · 2.6</div>
+          <div class="ssp-legend-desc">Sustainability. Strong mitigation measures. Rapid decarbonisation.</div>
+          <div class="ssp-legend-temp">≈ +2°C by 2100</div>
+        </div>
+        <div class="ssp-legend-item" data-ssp="SSP2">
+          <div class="ssp-legend-code">SSP2 · 4.5</div>
+          <div class="ssp-legend-desc">Middle of the road. Moderate measures. Gradual transition.</div>
+          <div class="ssp-legend-temp">≈ +2.3°C – 3.5°C</div>
+        </div>
+        <div class="ssp-legend-item" data-ssp="SSP3">
+          <div class="ssp-legend-code">SSP3 · 7.0</div>
+          <div class="ssp-legend-desc">Regional rivalry. Low ambition. Fragmented policies.</div>
+          <div class="ssp-legend-temp">≈ +3.7°C – 5.1°C</div>
+        </div>
+        <div class="ssp-legend-item" data-ssp="SSP5">
+          <div class="ssp-legend-code">SSP5 · 8.5</div>
+          <div class="ssp-legend-desc">Fossil-fuelled development. No mitigation. Catastrophic warming.</div>
+          <div class="ssp-legend-temp">≈ +4.3°C – 6.7°C</div>
+        </div>
       </div>
-      <div class="horizon-controls">
-        <button class="horizon-btn active" data-h="corto" id="h-corto-en">Near term</button>
-        <button class="horizon-btn" data-h="med" id="h-med-en">Medium term</button>
-        <button class="horizon-btn" data-h="largo" id="h-largo-en">Long term</button>
+      <div class="horizon-row">
+        <span class="horizon-label">Time horizon →</span>
+        <button class="horizon-btn" data-h="corto">Near term (2040)</button>
+        <button class="horizon-btn" data-h="med">Medium term (2060)</button>
+        <button class="horizon-btn active" data-h="largo">Long term (2100)</button>
       </div>
     </div>
+
+    <!-- ES -->
+    <div id="viz-es" class="viz-intro" style="display:none">
+      <h2 class="viz-intro-title">Proyecciones de elevación del mar · 12 ciudades</h2>
+      <p class="viz-intro-text">El IPCC (Panel Intergubernamental sobre Cambio Climático) define cuatro escenarios climáticos — llamados SSPs (Trayectorias Socioeconómicas Compartidas) — que describen futuros posibles según cuánto se reduzcan las emisiones de gases de efecto invernadero. Cada escenario proyecta un grado distinto de calentamiento y, en consecuencia, una elevación diferente del nivel del mar. Los datos muestran el cambio proyectado en metros para 12 ciudades costeras de seis continentes, en tres horizontes temporales.</p>
+      <div class="ssp-legend" id="ssp-btns-es">
+        <div class="ssp-legend-item active" data-ssp="SSP1">
+          <div class="ssp-legend-code">SSP1 · 2.6</div>
+          <div class="ssp-legend-desc">Sostenibilidad. Medidas fuertes. Descarbonización acelerada.</div>
+          <div class="ssp-legend-temp">≈ +2°C en 2100</div>
+        </div>
+        <div class="ssp-legend-item" data-ssp="SSP2">
+          <div class="ssp-legend-code">SSP2 · 4.5</div>
+          <div class="ssp-legend-desc">Camino intermedio. Medidas moderadas. Transición gradual.</div>
+          <div class="ssp-legend-temp">≈ +2.3°C – 3.5°C</div>
+        </div>
+        <div class="ssp-legend-item" data-ssp="SSP3">
+          <div class="ssp-legend-code">SSP3 · 7.0</div>
+          <div class="ssp-legend-desc">Rivalidad regional. Baja ambición. Políticas fragmentadas.</div>
+          <div class="ssp-legend-temp">≈ +3.7°C – 5.1°C</div>
+        </div>
+        <div class="ssp-legend-item" data-ssp="SSP5">
+          <div class="ssp-legend-code">SSP5 · 8.5</div>
+          <div class="ssp-legend-desc">Desarrollo fósil. Sin mitigación. Calentamiento catastrófico.</div>
+          <div class="ssp-legend-temp">≈ +4.3°C – 6.7°C</div>
+        </div>
+      </div>
+      <div class="horizon-row">
+        <span class="horizon-label">Horizonte →</span>
+        <button class="horizon-btn" data-h="corto">Corto plazo (2040)</button>
+        <button class="horizon-btn" data-h="med">Mediano plazo (2060)</button>
+        <button class="horizon-btn active" data-h="largo">Largo plazo (2100)</button>
+      </div>
+    </div>
+
+    <div class="map-legend-row">
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:rgba(0,0,0,0.7)"></div> Sea level rise (m)</div>
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:transparent;border:1.5px dashed #aaa"></div> Sea level fall (isostatic rebound)</div>
+    </div>
     <div id="bubble-map"></div>
+    <div class="map-note">Bubble size proportional to sea level change in metres · Source: IPCC AR6 (2021)</div>
     <div id="map-tooltip-viz"></div>
   </div>
 
@@ -264,8 +395,7 @@
       document.getElementById("es").classList.toggle("active");
       currentLang = currentLang === "en" ? "es" : "en";
       document.getElementById("toggle-btn").textContent = currentLang === "en" ? "ES" : "EN";
-      document.getElementById("viz-title-en").style.display = currentLang === "en" ? "" : "none";
-      document.getElementById("viz-title-es").style.display = currentLang === "es" ? "" : "none";
+      updateVizLang();
     }
     (function(){
       var p = new URLSearchParams(location.search);
@@ -277,6 +407,12 @@
         c.style.display = "block";
       }
     })();
+
+    // ── Toggle viz sections ──
+    function updateVizLang() {
+      document.getElementById("viz-en").style.display = currentLang === "en" ? "" : "none";
+      document.getElementById("viz-es").style.display = currentLang === "es" ? "" : "none";
+    }
 
     // ── Bubble map ──
     const cities = [
@@ -313,11 +449,10 @@
         .attr('viewBox', `0 0 ${W} ${H}`);
 
       svg.append('path').datum({type:'Sphere'})
-        .attr('d', path).attr('fill', '#f5f5f5');
+        .attr('d', path).attr('fill', '#fafafa');
 
-      const maxVal = d3.max(cities, d => Math.abs(d[getKey()]));
-      const r = d3.scaleSqrt().domain([0, maxVal]).range([0, W * 0.045]);
-
+      const maxVal = 1.0;
+      const r = d3.scaleSqrt().domain([0, maxVal]).range([0, W * 0.05]);
       const tt = document.getElementById('map-tooltip-viz');
 
       fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
@@ -327,10 +462,9 @@
           svg.selectAll('.country')
             .data(countries.features)
             .enter().append('path')
-            .attr('class', 'country')
             .attr('d', path)
-            .attr('fill', '#e0e0e0')
-            .attr('stroke', '#ccc')
+            .attr('fill', '#e8e8e8')
+            .attr('stroke', '#d0d0d0')
             .attr('stroke-width', 0.3);
 
           cities.forEach(d => {
@@ -338,46 +472,55 @@
             if (!xy) return;
             const val = d[getKey()];
             const rising = val >= 0;
-            const rad = r(Math.abs(val));
+            const rad = Math.max(r(Math.abs(val)), 4);
 
-            svg.append('circle')
-              .attr('cx', xy[0]).attr('cy', xy[1])
-              .attr('r', 0)
-              .attr('fill', rising ? 'rgba(0,255,0,0.5)' : 'rgba(100,100,255,0.4)')
-              .attr('stroke', rising ? '#00FF00' : '#6666ff')
-              .attr('stroke-width', 1)
-              .attr('cursor', 'pointer')
+            const g = svg.append('g').attr('cursor', 'pointer');
+
+            if (rising) {
+              g.append('circle')
+                .attr('cx', xy[0]).attr('cy', xy[1]).attr('r', 0)
+                .attr('fill', `rgba(0,0,0,${0.15 + 0.7 * Math.abs(val) / maxVal})`)
+                .attr('stroke', 'none')
+                .transition().duration(500).ease(d3.easeCubicOut)
+                .attr('r', rad);
+            } else {
+              g.append('circle')
+                .attr('cx', xy[0]).attr('cy', xy[1]).attr('r', 0)
+                .attr('fill', 'none')
+                .attr('stroke', '#aaa')
+                .attr('stroke-width', 1.2)
+                .attr('stroke-dasharray', '3,2')
+                .transition().duration(500).ease(d3.easeCubicOut)
+                .attr('r', rad);
+            }
+
+            // hit area invisible
+            g.append('circle')
+              .attr('cx', xy[0]).attr('cy', xy[1]).attr('r', Math.max(rad + 4, 10))
+              .attr('fill', 'transparent')
               .on('mousemove', e => {
                 tt.style.opacity = 1;
-                tt.style.left = (e.clientX + 12) + 'px';
-                tt.style.top = (e.clientY - 28) + 'px';
-                tt.textContent = `${d.ciudad} · ${val > 0 ? '+' : ''}${val.toFixed(2)}m`;
+                tt.style.left = (e.clientX + 14) + 'px';
+                tt.style.top = (e.clientY - 36) + 'px';
+                const sign = val > 0 ? '+' : '';
+                tt.innerHTML = `${d.ciudad} · ${d.pais}<br>${sign}${val.toFixed(2)} m`;
               })
-              .on('mouseleave', () => { tt.style.opacity = 0; })
-              .transition().duration(600).ease(d3.easeCubicOut)
-              .attr('r', Math.max(rad, 3));
-
-            svg.append('text')
-              .attr('x', xy[0]).attr('y', xy[1] - rad - 4)
-              .attr('text-anchor', 'middle')
-              .attr('font-family', 'Inconsolata, monospace')
-              .attr('font-size', Math.max(W * 0.008, 7))
-              .attr('fill', '#555')
-              .attr('pointer-events', 'none')
-              .text(d.ciudad);
+              .on('mouseleave', () => { tt.style.opacity = 0; });
           });
         });
     }
 
-    document.querySelectorAll('.ssp-btn').forEach(btn => {
+    // SSP cards
+    document.querySelectorAll('.ssp-legend-item').forEach(btn => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('.ssp-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.ssp-legend-item').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentSSP = btn.dataset.ssp;
         drawMap();
       });
     });
 
+    // Horizon buttons
     document.querySelectorAll('.horizon-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.horizon-btn').forEach(b => b.classList.remove('active'));
