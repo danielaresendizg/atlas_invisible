@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Atlas de lo Invisible: Inundación Inminente</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 0;
+      background: #fff; color: #1a1a1a;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      line-height: 1.7;
+    }
+
+    /* Layout */
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 72px 48px 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* Col 1: texto */
+    .col-text {
+      position: sticky;
+      top: 72px;
+    }
+
+    /* Col 2: imágenes */
+    .col-image {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .col-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .img-caption {
+      font-family: 'Inconsolata', monospace;
+      font-size: .58rem;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      line-height: 1.5;
+    }
+
+    /* Texto */
+    h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      line-height: 1.3; font-weight: 400;
+      margin: 0 0 1.4rem; color: #1a1a1a;
+    }
+    .content p {
+      font-size: .78rem; margin: 1rem 0;
+      color: #1a1a1a; font-weight: 300;
+      line-height: 1.7;
+    }
+    .content strong { font-weight: 500; }
+    .meta-list {
+      font-family: 'Inconsolata', monospace;
+      font-size: .65rem; color: #888;
+      text-transform: uppercase; letter-spacing: .04em;
+      line-height: 2; margin: 1.4rem 0 0;
+      list-style: none; padding: 0;
+    }
+    .meta-list li span { color: #1a1a1a; }
+
+    /* Toggle */
+    .toggle-btn {
+      position: fixed; top: 16px; right: 16px;
+      background: #00FF00; color: #000; border: none;
+      padding: 5px 12px; cursor: pointer;
+      font-family: 'Inconsolata', monospace;
+      font-size: .58rem; font-weight: 400;
+      letter-spacing: .06em; text-transform: uppercase;
+      z-index: 100;
+    }
+    .toggle-btn:hover { opacity: .8; }
+
+    .lang { display: none; }
+    .lang.active { display: contents; }
+
+    /* Back chip */
+    #back-chip {
+      position: fixed; top: 16px; left: 16px; z-index: 9999;
+      display: none; background: #00FF00; color: #000;
+      font-family: 'Inconsolata', monospace;
+      font-size: .58rem; font-weight: 400;
+      text-transform: uppercase; letter-spacing: .06em;
+      padding: 5px 12px; text-decoration: none;
+    }
+    #back-chip:hover { opacity: .8; }
+
+    /* Mobile */
+    .mobile-links { display: none; }
+    @media (max-width: 768px) {
+      .page {
+        grid-template-columns: 1fr;
+        padding: 56px 20px 60px;
+        gap: 0;
+      }
+      .col-text { position: static; order: 2; padding-top: 24px; }
+      .col-image { order: 1; gap: 8px; }
+      .col-image img:not(:first-child) { display: none; }
+      h1 { font-size: 1.1rem; }
+      .content p { font-size: .82rem; }
+    }
+  </style>
+</head>
+<body>
+  <button class="toggle-btn" id="toggle-btn" onclick="toggleLang()">ES</button>
+  <a id="back-chip" href="#"></a>
+
+  <div class="page">
+
+    <!-- ENGLISH -->
+    <div id="en" class="lang active">
+      <div class="col-text">
+        <h1>Atlas of the Invisible:<br><em>Imminent Flooding</em></h1>
+        <div class="content">
+          <p>An ephemeral installation that visualises the impacts of global warming through four coastal cities — Mérida, New York, Cape Town, and Amsterdam — each representing a distinct geography of climate vulnerability.</p>
+          <p>The installation consists of a horizontal fabric plane representing sea level, traversed vertically by four recycled fabric cones corresponding to each city. A pulley and counterweight system loaded with sand slowly descends the cones through the sea level mark over the duration of the exhibition — a measured, physical enactment of submergence.</p>
+          <p>The work transmits a call to action toward the present, inviting visitors to consider the relationship between daily habits and the planet's future. Data on sea level elevation under different climate change scenarios grounds each cone's trajectory.</p>
+        </div>
+        <ul class="meta-list">
+          <li>Venue · <span>Casa Bravo, Puebla, MX</span></li>
+          <li>Event · <span>Patio. Encuentro de Intervenciones Efímeras</span></li>
+          <li>Exhibition · <span>October 7–15, 2023</span></li>
+          <li>Area · <span>25 m²</span></li>
+          <li>Team · <span>Studio Fundación — Diego González, Omar Granados, Zabdiel Ramos, Daniela Reséndiz, Jimena Gárate</span></li>
+          <li>Photos · <span>Amy Bello, courtesy of Patio Efímero</span></li>
+        </ul>
+      </div>
+      <div class="col-image">
+        <img src="atlas_01.jpg" alt="Atlas de lo Invisible installation view">
+        <img src="atlas_02.jpg" alt="Atlas de lo Invisible installation detail">
+        <img src="atlas_03.jpg" alt="Atlas de lo Invisible installation detail">
+        <div class="img-caption">Photographs: Amy Bello, courtesy of Patio Efímero.</div>
+      </div>
+    </div>
+
+    <!-- SPANISH -->
+    <div id="es" class="lang">
+      <div class="col-text">
+        <h1>Atlas de lo Invisible:<br><em>Inundación Inminente</em></h1>
+        <div class="content">
+          <p>Una instalación efímera que visualiza los impactos del calentamiento global a través de cuatro ciudades costeras — Mérida, Nueva York, Ciudad del Cabo y Ámsterdam —, cada una representando una geografía distinta de vulnerabilidad climática.</p>
+          <p>La instalación consiste en un plano horizontal de tela que representa el nivel del mar, atravesado verticalmente por cuatro conos de tela reciclada correspondientes a cada ciudad. Un sistema de poleas y contrapeso cargado con arena desciende lentamente los conos a través de la marca del nivel del mar durante el tiempo de exhibición — una representación física y medida de la inundación.</p>
+          <p>La obra transmite un llamado de alerta hacia el presente, invitando a los visitantes a considerar la relación entre los hábitos cotidianos y el futuro del planeta. Los datos sobre la elevación del nivel del mar en distintos escenarios de cambio climático sustentan la trayectoria de cada cono.</p>
+        </div>
+        <ul class="meta-list">
+          <li>Sede · <span>Casa Bravo, Puebla, MX</span></li>
+          <li>Evento · <span>Patio. Encuentro de Intervenciones Efímeras</span></li>
+          <li>Exhibición · <span>7–15 de octubre, 2023</span></li>
+          <li>Área · <span>25 m²</span></li>
+          <li>Equipo · <span>Studio Fundación — Diego González, Omar Granados, Zabdiel Ramos, Daniela Reséndiz, Jimena Gárate</span></li>
+          <li>Fotos · <span>Amy Bello, cortesía de Patio Efímero</span></li>
+        </ul>
+      </div>
+      <div class="col-image">
+        <img src="atlas_01.jpg" alt="Vista de la instalación Atlas de lo Invisible">
+        <img src="atlas_02.jpg" alt="Detalle de la instalación Atlas de lo Invisible">
+        <img src="atlas_03.jpg" alt="Detalle de la instalación Atlas de lo Invisible">
+        <div class="img-caption">Fotografías: Amy Bello, cortesía de Patio Efímero.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    var currentLang = "en";
+    function toggleLang(){
+      document.getElementById("en").classList.toggle("active");
+      document.getElementById("es").classList.toggle("active");
+      currentLang = currentLang === "en" ? "es" : "en";
+      document.getElementById("toggle-btn").textContent = currentLang === "en" ? "ES" : "EN";
+    }
+    (function(){
+      var p = new URLSearchParams(location.search);
+      if(p.get("ref")==="portfolio"){
+        var c = document.getElementById("back-chip");
+        var lang = p.get("lang");
+        c.textContent = lang==="es" ? "← Proyectos" : "← Projects";
+        c.href = lang==="es" ? "https://danielaresendizg.github.io/es/projects.html" : "https://danielaresendizg.github.io/en/projects.html";
+        c.style.display = "block";
+      }
+    })();
+  </script>
+</body>
+</html>
