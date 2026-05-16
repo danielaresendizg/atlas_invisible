@@ -98,6 +98,66 @@
     }
     #back-chip:hover { opacity: .8; }
 
+    /* Viz section */
+    .viz-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px 80px;
+    }
+    .viz-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .viz-title {
+      font-family: 'Inconsolata', monospace;
+      font-size: .65rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #888;
+      flex: 1;
+    }
+    .ssp-controls, .horizon-controls {
+      display: flex;
+      gap: 4px;
+    }
+    .ssp-btn, .horizon-btn {
+      background: transparent;
+      border: 1px solid #ddd;
+      font-family: 'Inconsolata', monospace;
+      font-size: .58rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      padding: 4px 10px;
+      cursor: pointer;
+      color: #888;
+    }
+    .ssp-btn.active, .horizon-btn.active {
+      background: #00FF00;
+      border-color: #00FF00;
+      color: #000;
+    }
+    .ssp-btn:hover, .horizon-btn:hover { border-color: #1a1a1a; color: #1a1a1a; }
+    #bubble-map { width: 100%; }
+    #bubble-map svg { width: 100%; display: block; }
+    #map-tooltip-viz {
+      position: fixed;
+      pointer-events: none;
+      background: #1a1a1a;
+      color: #fff;
+      font-family: 'Inconsolata', monospace;
+      font-size: .6rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      padding: 6px 10px;
+      opacity: 0;
+      transition: opacity .15s;
+      white-space: nowrap;
+      z-index: 999;
+    }
+
     /* Mobile */
     .mobile-links { display: none; }
     @media (max-width: 768px) {
@@ -174,6 +234,29 @@
 
   </div>
 
+  <!-- Data visualization -->
+  <div class="viz-section">
+    <div class="viz-header">
+      <div class="viz-title" id="viz-title-en">Sea level rise projections · 12 cities</div>
+      <div class="viz-title" id="viz-title-es" style="display:none">Proyecciones de elevación del nivel del mar · 12 ciudades</div>
+      <div class="ssp-controls">
+        <button class="ssp-btn active" data-ssp="SSP1">SSP1</button>
+        <button class="ssp-btn" data-ssp="SSP2">SSP2</button>
+        <button class="ssp-btn" data-ssp="SSP3">SSP3</button>
+        <button class="ssp-btn" data-ssp="SSP5">SSP5</button>
+      </div>
+      <div class="horizon-controls">
+        <button class="horizon-btn active" data-h="corto" id="h-corto-en">Near term</button>
+        <button class="horizon-btn" data-h="med" id="h-med-en">Medium term</button>
+        <button class="horizon-btn" data-h="largo" id="h-largo-en">Long term</button>
+      </div>
+    </div>
+    <div id="bubble-map"></div>
+    <div id="map-tooltip-viz"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson@3/dist/topojson.min.js"></script>
   <script>
     var currentLang = "en";
     function toggleLang(){
@@ -181,6 +264,8 @@
       document.getElementById("es").classList.toggle("active");
       currentLang = currentLang === "en" ? "es" : "en";
       document.getElementById("toggle-btn").textContent = currentLang === "en" ? "ES" : "EN";
+      document.getElementById("viz-title-en").style.display = currentLang === "en" ? "" : "none";
+      document.getElementById("viz-title-es").style.display = currentLang === "es" ? "" : "none";
     }
     (function(){
       var p = new URLSearchParams(location.search);
@@ -192,6 +277,118 @@
         c.style.display = "block";
       }
     })();
+
+    // ── Bubble map ──
+    const cities = [
+      { ciudad: 'Sureste MX', pais: 'México', coords: [-90.5, 19.5], SSP1_corto:0.18, SSP1_med:0.22, SSP1_largo:0.50, SSP2_corto:0.19, SSP2_med:0.30, SSP2_largo:0.62, SSP3_corto:0.20, SSP3_med:0.30, SSP3_largo:0.70, SSP5_corto:0.20, SSP5_med:0.37, SSP5_largo:0.83 },
+      { ciudad: 'Cartagena', pais: 'Colombia', coords: [-75.5, 10.4], SSP1_corto:0.18, SSP1_med:0.30, SSP1_largo:0.60, SSP2_corto:0.18, SSP2_med:0.35, SSP2_largo:0.77, SSP3_corto:0.18, SSP3_med:0.37, SSP3_largo:0.80, SSP5_corto:0.18, SSP5_med:0.37, SSP5_largo:0.90 },
+      { ciudad: 'Lima', pais: 'Perú', coords: [-77.0, -12.0], SSP1_corto:0.10, SSP1_med:0.19, SSP1_largo:0.37, SSP2_corto:0.10, SSP2_med:0.19, SSP2_largo:0.45, SSP3_corto:0.12, SSP3_med:0.20, SSP3_largo:0.57, SSP5_corto:0.15, SSP5_med:0.22, SSP5_largo:0.62 },
+      { ciudad: 'Nueva York', pais: 'EE.UU.', coords: [-74.0, 40.7], SSP1_corto:0.18, SSP1_med:0.39, SSP1_largo:0.63, SSP2_corto:0.20, SSP2_med:0.40, SSP2_largo:0.77, SSP3_corto:0.20, SSP3_med:0.41, SSP3_largo:0.85, SSP5_corto:0.22, SSP5_med:0.42, SSP5_largo:1.00 },
+      { ciudad: 'Cape Dorset', pais: 'Canadá', coords: [-76.5, 64.2], SSP1_corto:-0.17, SSP1_med:-0.18, SSP1_largo:-0.18, SSP2_corto:-0.18, SSP2_med:-0.18, SSP2_largo:-0.18, SSP3_corto:-0.18, SSP3_med:-0.18, SSP3_largo:-0.20, SSP5_corto:-0.18, SSP5_med:-0.20, SSP5_largo:-0.20 },
+      { ciudad: 'Longyearbyen', pais: 'Noruega', coords: [15.6, 78.2], SSP1_corto:-0.17, SSP1_med:-0.18, SSP1_largo:-0.18, SSP2_corto:-0.18, SSP2_med:-0.18, SSP2_largo:-0.18, SSP3_corto:-0.18, SSP3_med:-0.18, SSP3_largo:-0.20, SSP5_corto:-0.18, SSP5_med:-0.20, SSP5_largo:-0.20 },
+      { ciudad: 'Amsterdam', pais: 'Holanda', coords: [4.9, 52.4], SSP1_corto:0.18, SSP1_med:0.22, SSP1_largo:0.42, SSP2_corto:0.18, SSP2_med:0.22, SSP2_largo:0.57, SSP3_corto:0.19, SSP3_med:0.22, SSP3_largo:0.60, SSP5_corto:0.19, SSP5_med:0.22, SSP5_largo:0.70 },
+      { ciudad: 'Dubai', pais: 'Emiratos', coords: [55.3, 25.2], SSP1_corto:0.10, SSP1_med:0.19, SSP1_largo:0.37, SSP2_corto:0.18, SSP2_med:0.20, SSP2_largo:0.41, SSP3_corto:0.18, SSP3_med:0.20, SSP3_largo:0.57, SSP5_corto:0.18, SSP5_med:0.22, SSP5_largo:0.60 },
+      { ciudad: 'Bombay', pais: 'India', coords: [72.8, 19.1], SSP1_corto:0.10, SSP1_med:0.20, SSP1_largo:0.38, SSP2_corto:0.10, SSP2_med:0.20, SSP2_largo:0.44, SSP3_corto:0.10, SSP3_med:0.20, SSP3_largo:0.58, SSP5_corto:0.12, SSP5_med:0.22, SSP5_largo:0.65 },
+      { ciudad: 'Manila', pais: 'Filipinas', coords: [120.9, 14.6], SSP1_corto:0.20, SSP1_med:0.40, SSP1_largo:0.80, SSP2_corto:0.21, SSP2_med:0.41, SSP2_largo:0.97, SSP3_corto:0.21, SSP3_med:0.42, SSP3_largo:0.99, SSP5_corto:0.21, SSP5_med:0.42, SSP5_largo:1.00 },
+      { ciudad: 'Melbourne', pais: 'Australia', coords: [144.9, -37.8], SSP1_corto:0.10, SSP1_med:0.20, SSP1_largo:0.42, SSP2_corto:0.15, SSP2_med:0.22, SSP2_largo:0.52, SSP3_corto:0.16, SSP3_med:0.23, SSP3_largo:0.61, SSP5_corto:0.18, SSP5_med:0.22, SSP5_largo:0.77 },
+      { ciudad: 'Ciudad del Cabo', pais: 'Sudáfrica', coords: [18.4, -33.9], SSP1_corto:0.10, SSP1_med:0.20, SSP1_largo:0.41, SSP2_corto:0.18, SSP2_med:0.21, SSP2_largo:0.59, SSP3_corto:0.18, SSP3_med:0.21, SSP3_largo:0.61, SSP5_corto:0.18, SSP5_med:0.22, SSP5_largo:0.78 },
+    ];
+
+    let currentSSP = 'SSP1', currentH = 'largo';
+
+    function getKey() { return currentSSP + '_' + currentH; }
+
+    function drawMap() {
+      const container = document.getElementById('bubble-map');
+      container.innerHTML = '';
+      const W = container.clientWidth || 900;
+      const H = Math.round(W * 0.5);
+
+      const projection = d3.geoNaturalEarth1()
+        .scale(W / 6.2)
+        .translate([W / 2, H / 2]);
+      const path = d3.geoPath().projection(projection);
+
+      const svg = d3.select('#bubble-map').append('svg')
+        .attr('viewBox', `0 0 ${W} ${H}`);
+
+      svg.append('path').datum({type:'Sphere'})
+        .attr('d', path).attr('fill', '#f5f5f5');
+
+      const maxVal = d3.max(cities, d => Math.abs(d[getKey()]));
+      const r = d3.scaleSqrt().domain([0, maxVal]).range([0, W * 0.045]);
+
+      const tt = document.getElementById('map-tooltip-viz');
+
+      fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+        .then(res => res.json())
+        .then(world => {
+          const countries = topojson.feature(world, world.objects.countries);
+          svg.selectAll('.country')
+            .data(countries.features)
+            .enter().append('path')
+            .attr('class', 'country')
+            .attr('d', path)
+            .attr('fill', '#e0e0e0')
+            .attr('stroke', '#ccc')
+            .attr('stroke-width', 0.3);
+
+          cities.forEach(d => {
+            const xy = projection(d.coords);
+            if (!xy) return;
+            const val = d[getKey()];
+            const rising = val >= 0;
+            const rad = r(Math.abs(val));
+
+            svg.append('circle')
+              .attr('cx', xy[0]).attr('cy', xy[1])
+              .attr('r', 0)
+              .attr('fill', rising ? 'rgba(0,255,0,0.5)' : 'rgba(100,100,255,0.4)')
+              .attr('stroke', rising ? '#00FF00' : '#6666ff')
+              .attr('stroke-width', 1)
+              .attr('cursor', 'pointer')
+              .on('mousemove', e => {
+                tt.style.opacity = 1;
+                tt.style.left = (e.clientX + 12) + 'px';
+                tt.style.top = (e.clientY - 28) + 'px';
+                tt.textContent = `${d.ciudad} · ${val > 0 ? '+' : ''}${val.toFixed(2)}m`;
+              })
+              .on('mouseleave', () => { tt.style.opacity = 0; })
+              .transition().duration(600).ease(d3.easeCubicOut)
+              .attr('r', Math.max(rad, 3));
+
+            svg.append('text')
+              .attr('x', xy[0]).attr('y', xy[1] - rad - 4)
+              .attr('text-anchor', 'middle')
+              .attr('font-family', 'Inconsolata, monospace')
+              .attr('font-size', Math.max(W * 0.008, 7))
+              .attr('fill', '#555')
+              .attr('pointer-events', 'none')
+              .text(d.ciudad);
+          });
+        });
+    }
+
+    document.querySelectorAll('.ssp-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.ssp-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentSSP = btn.dataset.ssp;
+        drawMap();
+      });
+    });
+
+    document.querySelectorAll('.horizon-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.horizon-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentH = btn.dataset.h;
+        drawMap();
+      });
+    });
+
+    window.addEventListener('resize', drawMap);
+    drawMap();
   </script>
 </body>
 </html>
