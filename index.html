@@ -414,6 +414,7 @@
 
     <div class="map-legend-row">
       <div class="map-legend-item"><div class="map-legend-dot" style="background:rgba(0,0,0,0.7)"></div> Sea level rise (m)</div>
+      <div class="map-legend-item"><div class="map-legend-dot" style="background:rgba(0,0,255,0.8)"></div> Cities in the installation</div>
       <div class="map-legend-item"><div class="map-legend-dot" style="background:transparent;border:1.5px dashed #aaa"></div> Sea level fall (isostatic rebound)</div>
     </div>
     <div id="bubble-map"></div>
@@ -531,10 +532,9 @@
               g.append('circle')
                 .attr('cx', xy[0]).attr('cy', xy[1]).attr('r', 0)
                 .attr('fill', d.expo
-                ? `rgba(0,0,255,${0.3 + 0.7 * Math.abs(val) / maxVal})`
-                : `rgba(0,0,255,${0.08 + 0.25 * Math.abs(val) / maxVal})`)
-                .attr('stroke', d.expo ? '#0000FF' : 'none')
-              .attr('stroke-width', d.expo ? 1.5 : 0)
+                  ? `rgba(0,0,255,${0.3 + 0.7 * Math.abs(val) / maxVal})`
+                  : `rgba(0,0,0,${0.15 + 0.6 * Math.abs(val) / maxVal})`)
+                .attr('stroke', 'none')
                 .transition().duration(500).ease(d3.easeCubicOut)
                 .attr('r', rad);
             } else {
