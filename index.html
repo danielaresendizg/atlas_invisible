@@ -501,7 +501,7 @@
         .attr('d', path).attr('fill', '#fafafa');
 
       const maxVal = 1.0;
-      const r = d3.scaleSqrt().domain([0, maxVal]).range([0, W * 0.05]);
+      const r = d3.scaleLinear().domain([0, maxVal]).range([0, W * 0.09]);
       const tt = document.getElementById('map-tooltip-viz');
 
       fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
@@ -521,7 +521,7 @@
             if (!xy) return;
             const val = d[getKey()];
             const rising = val >= 0;
-            const rad = Math.max(r(Math.abs(val)), 4);
+            const rad = Math.max(r(Math.abs(val)), 3);
 
             const g = svg.append('g').attr('cursor', 'pointer');
 
