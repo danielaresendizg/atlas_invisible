@@ -1,0 +1,25 @@
+continente,pais,ciudad,peligro,medida,SSP1_corto,SSP1_med,SSP1_largo,SSP2_corto,SSP2_med,SSP2_largo,SSP3_corto,SSP3_med,SSP3_largo,SSP5_corto,SSP5_med,SSP5_largo
+america,mexico,Sureste (Mérida / Tabasco / Veracruz),elevacion_mar,metros,0.18,0.22,0.50,0.19,0.30,0.62,0.20,0.30,0.70,0.20,0.37,0.83
+america,colombia,Cartagena,elevacion_mar,metros,0.18,0.30,0.60,0.18,0.35,0.77,0.18,0.37,0.80,0.18,0.37,0.90
+america,peru,Lima,elevacion_mar,metros,0.10,0.19,0.37,0.10,0.19,0.45,0.12,0.20,0.57,0.15,0.22,0.62
+america,estados unidos,Nueva York,elevacion_mar,metros,0.18,0.39,0.63,0.20,0.40,0.77,0.20,0.41,0.85,0.22,0.42,1.00
+america,canada,Cape Dorset,elevacion_mar,metros,-0.17,-0.18,-0.18,-0.18,-0.18,-0.18,-0.18,-0.18,-0.20,-0.18,-0.20,-0.20
+europa,noruega,Longyearbyen,elevacion_mar,metros,-0.17,-0.18,-0.18,-0.18,-0.18,-0.18,-0.18,-0.18,-0.20,-0.18,-0.20,-0.20
+europa,holanda,Amsterdam,elevacion_mar,metros,0.18,0.22,0.42,0.18,0.22,0.57,0.19,0.22,0.60,0.19,0.22,0.70
+asia,emiratos arabes unidos,Dubai,elevacion_mar,metros,0.10,0.19,0.37,0.18,0.20,0.41,0.18,0.20,0.57,0.18,0.22,0.60
+asia,india,Bombay,elevacion_mar,metros,0.10,0.20,0.38,0.10,0.20,0.44,0.10,0.20,0.58,0.12,0.22,0.65
+asia,filipinas,Manila,elevacion_mar,metros,0.20,0.40,0.80,0.21,0.41,0.97,0.21,0.42,0.99,0.21,0.42,1.00
+oceania,australia,Melbourne,elevacion_mar,metros,0.10,0.20,0.42,0.15,0.22,0.52,0.16,0.23,0.61,0.18,0.22,0.77
+africa,sudafrica,Ciudad del Cabo,elevacion_mar,metros,0.10,0.20,0.41,0.18,0.21,0.59,0.18,0.21,0.61,0.18,0.22,0.78
+america,mexico,Tabasco,precipitación,porcentaje,1,1,1,1,0,-5,1,-5,1,1,-5,-15
+america,colombia,Cartagena,precipitación,porcentaje,0,-1,-5,-1,-2,-9,-1,-10,-28,-3,-15,-32
+america,peru,Lima,precipitación,porcentaje,5,8,13,5,11,19,10,12,35,5,19,49
+america,estados unidos,Nueva York,precipitación,porcentaje,4,6,7,4,6,9,4,6,10,4,8,12
+america,canada,Cape Dorset,precipitación,porcentaje,5,10,11,8,11,20,8,11,25,9,15,34
+europa,noruega,Longyearbyen,precipitación,porcentaje,9,10,19,9,15,28,9,17,37,10,20,45
+europa,holanda,Amsterdam,precipitación,porcentaje,1,1,2,1,1,2,1,2,5,1,2,7
+asia,emiratos arabes unidos,Dubai,precipitación,porcentaje,5,5,9,5,9,9,5,9,22,9,9,27
+asia,india,Bombay,precipitación,porcentaje,7,9,9,7,10,12,9,11,28,9,18,42
+asia,filipinas,Manila,precipitación,porcentaje,1,1,1,1,1,1,1,1,1,1,1,5
+oceania,australia,Melbourne,precipitación,porcentaje,1,1,0,1,1,-1,1,1,-5,1,-1,-9
+africa,sudafrica,Ciudad del Cabo,precipitación,porcentaje,-1,-2,-3,-2,-9,-11,-2,-9,-22,-3,-11,-28
